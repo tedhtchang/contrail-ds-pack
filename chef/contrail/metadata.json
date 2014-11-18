@@ -1,0 +1,8 @@
+{
+  "override_attributes": {
+    "contrail":{
+      "setup_operatingsystem_dependencies_repo": "false",
+      "base_contrail_yum_url": "http://9.30.30.65:3080/scp/contrail/"
+    }
+  }
+}
