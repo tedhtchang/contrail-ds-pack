@@ -9,10 +9,9 @@ SHELL_PATH=$PACK_WORKSPACE
 #fi
 #mkdir $PACK_WORKSPACE
 #tar zxvf $1 -C $PACK_WORKSPACE
-#
 
 #Dump base environment to json file
-knife environment show deployment-service -F json -c /etc/chef/knife.rb > /tmp/ds-environment.json
+knife environment show ds-environment -F json -c /etc/chef/knife.rb > /tmp/ds-environment.json
 
 cd $PACK_WORKSPACE/chef
 for name in `ls`
