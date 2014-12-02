@@ -17,4 +17,4 @@ def mergeEnv(src, part, target):
 if __name__ == '__main__':
     src = json.load(open(sys.argv[1], 'r'))
     part = json.load(open(sys.argv[2], 'r'))
-    json.dump(mergeEnv(src, part, copy.deepcopy(src)), open('/tmp/deployment-service.json', 'w'))
+    json.dump(mergeEnv(src, part, copy.deepcopy(src)), open('/tmp/ds-environment.json', 'w'))
