@@ -12,7 +12,7 @@ SHELL_PATH=$PACK_WORKSPACE
 #
 
 #Dump base environment to json file
-knife environment show deployment-service -F json -c /etc/chef/knife.rb > /tmp/deployment-service.json
+knife environment show deployment-service -F json -c /etc/chef/knife.rb > /tmp/ds-environment.json
 
 cd $PACK_WORKSPACE/chef
 for name in `ls`
@@ -24,11 +24,11 @@ do
     #Upload cookbooks
     cd ../cookbooks
     knife cookbook upload * -c /etc/chef/knife.rb -o .
-    #Merge base environment to /tmp/deployment-service.json
+    #Merge base environment to /tmp/ds-environment.json
     cd $PACK_WORKSPACE/chef/$name
-    python $SHELL_PATH/lib/envUtil.py /tmp/deployment-service.json `pwd`/metadata.json
+    python $SHELL_PATH/lib/envUtil.py /tmp/ds-environment.json `pwd`/metadata.json
     #Replace base environment in chef server
-    knife environment from file /tmp/deployment-service.json -c /etc/chef/knife.rb
+    knife environment from file /tmp/ds-environment.json -c /etc/chef/knife.rb
     #Copy binaries and create yum repo
     mkdir /data/repos/scp/$name
     cp $PACK_WORKSPACE/chef/$name/packages/* /data/repos/scp/$name/
