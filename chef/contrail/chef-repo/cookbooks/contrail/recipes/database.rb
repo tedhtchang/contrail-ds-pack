@@ -31,7 +31,7 @@ end
     end
 end
 
-%w{ supervisor-database contrail-database }.each do |pkg|
+%w{ supervisor-contrail-database contrail-database }.each do |pkg|
     service pkg do
         action [:enable, :start]
     end

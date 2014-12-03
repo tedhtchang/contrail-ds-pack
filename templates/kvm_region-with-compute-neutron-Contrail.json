@@ -20,7 +20,7 @@
         "RegionName": {
             "Description": " the region name",
             "Type": "String",
-            "Default": "RegionKVM"
+            "Default": "RegionContrail1"
         },
         "EnableOSDebug": {
             "Description": "Enable OpenStack debug mode",
@@ -386,7 +386,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[neutron-network-node],role[contrail-common]",
+                "chef-runlist": "role[neutron-network-node]",
                 "order": 2
             }
         },
@@ -404,21 +404,7 @@
                 "multiple": true
             }
         },
-		"krn_ico_agents_sar": {
-			"Type": "IBM::SCO::NodeRef",
-			"Properties": {
-				"Address": "REGION_ADDR",
-				"User": "root",
-				"Password": "passw0rd",
-				"KeyFile": "/home/heat/.ssh/zq_key",
-				"NodeRef": "kvm_region_neutron"
-			},
-			"Metadata": {
-				"chef-runlist": "role[ico_mon_agent_sar]",
-				"order": 4
-			}
-		},
-		"nnn_ico_agents_sar": {
+		"contrail_network_noderef": {
 			"Type": "IBM::SCO::NodeRef",
 			"Properties": {
 				"Address": "NETWORK_ADDR",
@@ -428,22 +414,8 @@
 				"NodeRef": "neutron_network_node"
 			},
 			"Metadata": {
-				"chef-runlist": "role[ico_mon_agent_sar]",
-				"order": 5
-			}
-		},
-		"kc_ico_agents_sar": {
-			"Type": "IBM::SCO::NodeRef",
-			"Properties": {
-				"Address": "COMPUTE_ADDR",
-				"User": "root",
-				"Password": "passw0rd",
-				"KeyFile": "/home/heat/.ssh/zq_key",
-				"NodeRef": "kvm_compute"
-			},
-			"Metadata": {
-				"chef-runlist": "role[ico_mon_agent_sar]",
-				"order": 6
+				"chef-runlist": "role[contrail-common]",
+				"order": 4
 			}
 		}
     },
@@ -472,26 +444,10 @@
                 ]
             }
         },
-        "krn_ico_agents_sar_IP": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "kvm_region_neutron",
-                    "PublicIp"
-                ]
-            }
-        },
-        "nnn_ico_agents_sar_IP": {
+        "contrail_network_noderef_IP": {
             "Value": {
                 "Fn::GetAtt": [
                     "neutron_network_node",
-                    "PublicIp"
-                ]
-            }
-        },
-        "kc_ico_agents_sar_IP": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "kvm_compute",
                     "PublicIp"
                 ]
             }
@@ -1116,6 +1072,43 @@
         "CINDER_VG_SIZE" :{
            "Value": {
                 "Ref": "CinderVGSize"
+            }
+        },
+        "REGION_IP" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicIp"
+                ]
+            }
+        },
+        "NETWORK_IP" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "neutron_network_node",
+                    "PublicIp"
+                ]
+            }
+        },
+        "COMPUTE_IP" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_compute",
+                    "PublicIp"
+                ]
+            }
+        },
+        "NETWORK_FQDN" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "neutron_network_node",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "COMPUTE_NODE_INTERFACE": {
+            "Value":{
+	            "Ref": "MGMNetInterface"
             }
         }
     }

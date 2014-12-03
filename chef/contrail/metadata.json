@@ -1,8 +1,14 @@
 {
-  "override_attributes": {
+  "override_attributes":{
     "contrail":{
-      "setup_operatingsystem_dependencies_repo": "false",
-      "base_contrail_yum_url": "http://9.30.30.65:3080/scp/contrail/"
+      "setup_operatingsystem_dependencies_repo":"false",
+      "base_contrail_yum_url":"http://9.30.30.65:3080/scp/contrail/",
+      "keystone_ip":"CS2_VIRTUAL_ADDRESS",
+      "region_ip":"REGION_IP",
+      "network_ip":"NETWORK_IP",
+      "compute_ip":"COMPUTE_IP",
+      "network_fqdn":"NETWORK_FQDN",
+      "compute_node_interface":"COMPUTE_NODE_INTERFACE"
     }
   }
 }
