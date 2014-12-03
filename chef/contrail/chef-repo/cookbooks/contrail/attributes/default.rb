@@ -1,6 +1,3 @@
-
-
-#yumrepo.rb
 default['contrail']['contrail_version'] = '1.2'
 #To server your own RHEL repo, set true for this attribute and create the directory structure 'operatingsystem/redhat6.5/x86_64/' under your http server's DoucmentRoot.
 default['contrail']['setup_operatingsystem_dependencies_repo'] = false
