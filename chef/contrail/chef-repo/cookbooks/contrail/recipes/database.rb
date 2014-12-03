@@ -7,7 +7,7 @@
 
 package "contrail-openstack-database" do
     action :upgrade
-    notifies :stop, "service[supervisor-database]", :immediately
+    notifies :stop, "service[supervisor-contrail-database]", :immediately
     notifies :run, "bash[remove-initial-cassandra-data-dir]", :immediately
 end
 
