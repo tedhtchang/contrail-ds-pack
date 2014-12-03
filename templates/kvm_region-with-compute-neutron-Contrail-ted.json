@@ -386,7 +386,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[contrail-common],recipe[contrail::database],recipe[contrail::control]",
+                "chef-runlist": "role[contrail-common],recipe[contrail-database]",
                 "order": 2
             }
         },
