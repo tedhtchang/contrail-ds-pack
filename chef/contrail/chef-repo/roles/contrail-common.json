@@ -8,8 +8,7 @@
   },
   "chef_type": "role",
   "run_list": [
-    "recipe[contrail::yumrepo]",
-    "recipe[contrail::setup]"
+    "recipe[contrail::yumrepo]"
   ],
   "env_run_lists": {
   }
