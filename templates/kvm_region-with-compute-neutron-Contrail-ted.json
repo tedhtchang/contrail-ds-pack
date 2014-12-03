@@ -364,19 +364,6 @@
         }
     },
     "Resources": {
-        "kvm_region_neutron": {
-            "Type": "IBM::SCO::Node",
-            "Properties": {
-                "Address": "REGION_ADDR",
-                "User": "root",
-                "Password": "passw0rd",
-                "KeyFile": "/home/heat/.ssh/heat_key"
-            },
-            "Metadata": {
-                "chef-runlist": "role[contrail-common]",
-                "order": 1
-            }
-        },
         "neutron_network_node": {
             "Type": "IBM::SCO::Node",
             "Properties": {
@@ -386,66 +373,10 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[contrail-common],recipe[contrail-database]",
-                "order": 2
+                "chef-runlist": "role[contrail-common],role[contrail-database]",
+                "order": 1
             }
-        },
-        "kvm_compute": {
-            "Type": "IBM::SCO::Node",
-            "Properties": {
-                "Address": "COMPUTE_ADDR",
-                "User": "root",
-                "Password": "passw0rd",
-                "KeyFile": "/home/heat/.ssh/heat_key"
-            },
-            "Metadata": {
-                "chef-runlist": "role[contrail-common]",
-                "order": 3,
-                "multiple": true
-            }
-        },
-		"krn_ico_agents_sar": {
-			"Type": "IBM::SCO::NodeRef",
-			"Properties": {
-				"Address": "REGION_ADDR",
-				"User": "root",
-				"Password": "passw0rd",
-				"KeyFile": "/home/heat/.ssh/zq_key",
-				"NodeRef": "kvm_region_neutron"
-			},
-			"Metadata": {
-				"chef-runlist": "",
-				"order": 4
-			}
-		},
-		"nnn_ico_agents_sar": {
-			"Type": "IBM::SCO::NodeRef",
-			"Properties": {
-				"Address": "NETWORK_ADDR",
-				"User": "root",
-				"Password": "passw0rd",
-				"KeyFile": "/home/heat/.ssh/zq_key",
-				"NodeRef": "neutron_network_node"
-			},
-			"Metadata": {
-				"chef-runlist": "",
-				"order": 5
-			}
-		},
-		"kc_ico_agents_sar": {
-			"Type": "IBM::SCO::NodeRef",
-			"Properties": {
-				"Address": "COMPUTE_ADDR",
-				"User": "root",
-				"Password": "passw0rd",
-				"KeyFile": "/home/heat/.ssh/zq_key",
-				"NodeRef": "kvm_compute"
-			},
-			"Metadata": {
-				"chef-runlist": "",
-				"order": 6
-			}
-		}
+        }
     },
     "Outputs": {
         "kvm_region_neutron_IP": {
