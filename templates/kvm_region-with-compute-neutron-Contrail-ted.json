@@ -373,7 +373,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[kvm-region]",
+                "chef-runlist": "",
                 "order": 1
             }
         },
@@ -399,7 +399,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[kvm-compute],role[contrail-common]",
+                "chef-runlist": "role[contrail-common]",
                 "order": 3,
                 "multiple": true
             }
@@ -414,7 +414,7 @@
                 "NodeRef": "kvm_region_neutron"
             },
             "Metadata": {
-                "chef-runlist": "role[ico_mon_agent_sar]",
+                "chef-runlist": "",
                 "order": 4
             }
         },
@@ -428,7 +428,7 @@
                 "NodeRef": "neutron_network_node"
             },
             "Metadata": {
-                "chef-runlist": "role[ico_mon_agent_sar]",
+                "chef-runlist": "",
                 "order": 5
             }
         },
@@ -442,7 +442,7 @@
                 "NodeRef": "kvm_compute"
             },
             "Metadata": {
-                "chef-runlist": "role[ico_mon_agent_sar]",
+                "chef-runlist": "",
                 "order": 6
             }
         }        
