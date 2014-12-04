@@ -9,7 +9,7 @@
         "Type": {
             "name": "KVM Region Server with Contrail plugin",
             "desc": "IBM Cloud Orchestrator KVM region servers with Contrail plugin",
-	        "level": 2
+            "level": 2
         },
         "AutoRegister": true,
         "Name": "KVM region server with compute node and neutron network node with Contrail plugin",
@@ -163,9 +163,9 @@
             "Default": "50000"
         },
         "DB2ServiceIPNetmask":{
-        	"Description": "Netmask of DB2 service IP address",
-        	"Type": "String",
-        	"Default": "255.255.255.0"
+            "Description": "Netmask of DB2 service IP address",
+            "Type": "String",
+            "Default": "255.255.255.0"
         },
         "VolumeDBName": {
             "Description": "Volume database name",
@@ -273,68 +273,68 @@
             "Default": "26,1454"
         },
         "QuotaSecurityGroups":{
-        	"Description": "Quota for security group",
-        	"Type": "String",
+            "Description": "Quota for security group",
+            "Type": "String",
             "Default": "50"
         },
         "QuotaSecurityGroupRules":{
-        	"Description": "Quota for security group rules",
-        	"Type": "String",
+            "Description": "Quota for security group rules",
+            "Type": "String",
             "Default": "20"
         },
         "QuotaDriver":{
-        	"Description": "Quota for driver",
-        	"Type": "String",
+            "Description": "Quota for driver",
+            "Type": "String",
             "Default": "nova.quota.DbQuotaDriver"
         },
         "QuotaCores":{
-        	"Description": "Quota for cores",
-        	"Type": "String",
+            "Description": "Quota for cores",
+            "Type": "String",
             "Default": "20"
         },
         "QuotaFixedIps":{
-        	"Description": "Quota for fixed ips",
-        	"Type": "String",
+            "Description": "Quota for fixed ips",
+            "Type": "String",
             "Default": "-1"
         },
         "QuotaFloatingIps":{
-        	"Description": "Quota for floating ips",
-        	"Type": "String",
+            "Description": "Quota for floating ips",
+            "Type": "String",
             "Default": "10"
         },
         "QuotaInjectedFileContentBytes":{
-        	"Description": "Quota for injected file content bytes",
-        	"Type": "String",
+            "Description": "Quota for injected file content bytes",
+            "Type": "String",
             "Default": "10240"
         },
         "QuotaInjectedFilePathBytes":{
-        	"Description": "Quota for injected file path bytes",
-        	"Type": "String",
+            "Description": "Quota for injected file path bytes",
+            "Type": "String",
             "Default": "255"
         },
         "QuotaInjectedFiles":{
-        	"Description": "Quota for injected files",
-        	"Type": "String",
+            "Description": "Quota for injected files",
+            "Type": "String",
             "Default": "5"
         },
         "QuotaInstances":{
-        	"Description": "Quota for instances",
-        	"Type": "String",
+            "Description": "Quota for instances",
+            "Type": "String",
             "Default": "10"
         },
         "QuotaKeyPairs":{
-        	"Description": "Quota for key pairs",
-        	"Type": "String",
+            "Description": "Quota for key pairs",
+            "Type": "String",
             "Default": "100"
         },
         "QuotaMetadataItems":{
-        	"Description": "Quota for metadata items",
-        	"Type": "String",
+            "Description": "Quota for metadata items",
+            "Type": "String",
             "Default": "128"
         },
         "QuotaRam":{
-        	"Description": "Quota for Ram",
-        	"Type": "String",
+            "Description": "Quota for Ram",
+            "Type": "String",
             "Default": "51200"
         },
         "NovaStatePath":{
@@ -386,7 +386,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[contrail-common],role[contrail-database]",
+                "chef-runlist": "",
                 "order": 2
             }
         },
@@ -404,21 +404,7 @@
                 "multiple": true
             }
         },
-        "krn_ico_agents_sar": {
-            "Type": "IBM::SCO::NodeRef",
-            "Properties": {
-                "Address": "REGION_ADDR",
-                "User": "root",
-                "Password": "passw0rd",
-                "KeyFile": "/home/heat/.ssh/zq_key",
-                "NodeRef": "kvm_region_neutron"
-            },
-            "Metadata": {
-                "chef-runlist": "",
-                "order": 4
-            }
-        },
-        "nnn_ico_agents_sar": {
+        "contrail_network_noderef": {
             "Type": "IBM::SCO::NodeRef",
             "Properties": {
                 "Address": "NETWORK_ADDR",
@@ -429,23 +415,9 @@
             },
             "Metadata": {
                 "chef-runlist": "",
-                "order": 5
+                "order": 4
             }
-        },
-        "kc_ico_agents_sar": {
-            "Type": "IBM::SCO::NodeRef",
-            "Properties": {
-                "Address": "COMPUTE_ADDR",
-                "User": "root",
-                "Password": "passw0rd",
-                "KeyFile": "/home/heat/.ssh/zq_key",
-                "NodeRef": "kvm_compute"
-            },
-            "Metadata": {
-                "chef-runlist": "",
-                "order": 6
-            }
-        }        
+        }
     },
     "Outputs": {
         "kvm_region_neutron_IP": {
@@ -472,26 +444,10 @@
                 ]
             }
         },
-        "krn_ico_agents_sar_IP": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "kvm_region_neutron",
-                    "PublicIp"
-                ]
-            }
-        },
-        "nnn_ico_agents_sar_IP": {
+        "contrail_network_noderef_IP": {
             "Value": {
                 "Fn::GetAtt": [
                     "neutron_network_node",
-                    "PublicIp"
-                ]
-            }
-        },
-        "kc_ico_agents_sar_IP": {
-            "Value": {
-                "Fn::GetAtt": [
-                    "kvm_compute",
                     "PublicIp"
                 ]
             }
@@ -506,12 +462,12 @@
         },
         "DB2_SERVICE_IP_NETMASK": {
             "Value":{
-        		"Ref": "DB2ServiceIPNetmask"
+                "Ref": "DB2ServiceIPNetmask"
             }
         },
         "DB2_SERVICE_IP_INTERFACE": {
             "Value":{
-	            "Ref": "MGMNetInterface"
+                "Ref": "MGMNetInterface"
             }
         },
         "ENABLE_DEBUG": {
@@ -521,7 +477,7 @@
         },
         "REGION_NAME":{
             "Value":{
-        		"Ref": "RegionName"
+                "Ref": "RegionName"
             }
         },
         "NETWORK_MANAGER": {
@@ -561,17 +517,17 @@
         },
         "VLAN":{
             "Value":{
-	        	"Ref": "VMVLANID"
+                "Ref": "VMVLANID"
             }
         },
         "VMGATEWAY":{
             "Value":{
-	        	"Ref": "VMGATEWAY"
+                "Ref": "VMGATEWAY"
             }
         },
         "VMNETLABEL":{
             "Value":{
-	        	"Ref": "VMNETLABEL"
+                "Ref": "VMNETLABEL"
             }
         },
         "NET_INTERFACE": {
@@ -625,10 +581,10 @@
             }
         },
         "MULTI_HOST_ENABLE": {
-      		"Value": {
+            "Value": {
                 "Ref": "MultiHostEnable"
             }
-    	},
+        },
         "IMAGE_DEFAULT_STORE": {
             "Value": "file"
         },
@@ -697,7 +653,7 @@
         },
         "IMAGE_DB_PORT": {
             "Value":{
-	            "Ref": "DatabasePort"
+                "Ref": "DatabasePort"
             }
         },
         "IMAGE_DB_USERNAME": {
@@ -722,7 +678,7 @@
         },
         "NETWORK_DB_PORT": {
             "Value":{
-	            "Ref": "DatabasePort"
+                "Ref": "DatabasePort"
             }
         },
         
@@ -743,7 +699,7 @@
         },
         "VOLUME_DB_PORT": {
             "Value":{
-	            "Ref": "DatabasePort"
+                "Ref": "DatabasePort"
             }
         },
         "COMPUTE_DB_PASSWORD": {
@@ -763,7 +719,7 @@
         },
         "COMPUTE_DB_PORT": {
             "Value":{
-	            "Ref": "DatabasePort"
+                "Ref": "DatabasePort"
             }
         },
         
@@ -774,7 +730,7 @@
         },
         "ORCHESTRATION_DB_PORT": {
             "Value":{
-	            "Ref": "DatabasePort"
+                "Ref": "DatabasePort"
             }
         },
         "ORCHESTRATION_DB_NAME": {
@@ -804,7 +760,7 @@
         },
         "DASHBOARD_DB_PORT": {
             "Value":{
-	            "Ref": "DatabasePort"
+                "Ref": "DatabasePort"
             }
         },
         "KEYSTONE_DB_NAME": {
@@ -824,7 +780,7 @@
         },
         "KEYSTONE_DB_PORT": {
             "Value":{
-	            "Ref": "DatabasePort"
+                "Ref": "DatabasePort"
             }
         },
         "METERING_DB_NAME": {
@@ -844,7 +800,7 @@
         },
         "METERING_DB_PORT": {
             "Value":{
-	            "Ref": "DatabasePort"
+                "Ref": "DatabasePort"
             }
         },
         "METERING_DB_NOSQL_USED": {
@@ -1020,8 +976,8 @@
             }
         },
         "QPID_SET_HA": {
-      		"Value": "false"
-    	},
+            "Value": "false"
+        },
         "VM_SERVER_HOST": {
             "Value": " "
         },
@@ -1029,67 +985,67 @@
             "Value": "cinder.volume.drivers.lvm.LVMISCSIDriver"
         },
         "QUOTA_SECURITY_GROUPS": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaSecurityGroups"
            }
         },
         "QUOTA_SECURITY_GROUP_RULES": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaSecurityGroupRules"
            }
         },
         "QUOTA_DRIVER": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaDriver"
            }
         },
         "QUOTA_CORES": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaCores"
            }
         },
         "QUOTA_FIXED_IPS": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaFixedIps"
            }
         },
         "QUOTA_FLOATING_IPS": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaFloatingIps"
            }
         },
         "QUOTA_INJECTED_FILE_CONTENT_BYTES": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaInjectedFileContentBytes"
            }
         },
         "QUOTA_INJECTED_FILE_PATH_BYTES": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaInjectedFilePathBytes"
            }
         },
         "QUOTA_INJECTED_FILES": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaInjectedFiles"
            }
         },
         "QUOTA_INSTANCES": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaInstances"
            }
         },
         "QUOTA_KEY_PAIRS": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaKeyPairs"
            }
         },
         "QUOTA_METADATA_ITEMS": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaMetadataItems"
            }
         },
         "QUOTA_RAM": {
-        	"Value":{
+            "Value":{
                 "Ref":  "QuotaRam"
            }
         },
@@ -1142,14 +1098,18 @@
                 ]
             }
         },
-        "ADMIN_TOKEN" :{
+        "NETWORK_FQDN" :{
            "Value": {
                 "Fn::GetAtt": [
-                    "kvm_compute",
-                    "PublicIp"
+                    "neutron_network_node",
+                    "PublicDnsName"
                 ]
             }
+        },
+        "COMPUTE_NODE_INTERFACE": {
+            "Value":{
+                "Ref": "MGMNetInterface"
+            }
         }
-
     }
 }
