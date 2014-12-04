@@ -1,14 +1,31 @@
 {
   "override_attributes":{
     "contrail":{
-      "setup_operatingsystem_dependencies_repo":"false",
+      "setup_operatingsystem_dependencies_repo":"true",
       "base_contrail_yum_url":"http://9.30.30.65:3080/scp/contrail/",
       "keystone_ip":"CS2_VIRTUAL_ADDRESS",
       "region_ip":"REGION_IP",
       "network_ip":"NETWORK_IP",
       "compute_ip":"COMPUTE_IP",
-      "network_fqdn":"NETWORK_FQDN",
-      "compute_node_interface":"COMPUTE_NODE_INTERFACE"
+      "multi_tenancy":"MULTI_TENANCY",
+      "manage_neutron":"MANAGE_NEUTRON",
+      "manage_nova_compute":"MANAGE_NOVA_COMPUTE",
+      "router_asn":"ROUTER_ASN",
+      "admin_password":"ADMIN_PASSWORD",
+      "haproxy":"HAPROXY",
+      "cfgm":{
+        "hostname":"NETWORK_FQDN"
+      },
+      "compute":{
+        "domain":"SINGLE_SIGN_ON_DOMAIN",
+        "interface":"COMPUTE_NODE_INTERFACE",
+        "netmask":"COMPUTE_NETMASK",
+        "gateway":"COMPUTE_GATEWAY",
+        "cidr":"COMPUTE_CIDR",
+        "dns1":"COMPUTE_DNS1",
+        "dns2":"COMPUTE_DNS2",
+        "dns3":"COMPUTE_DNS3"
+      }   
     }
   }
 }

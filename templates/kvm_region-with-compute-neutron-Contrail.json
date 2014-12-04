@@ -20,7 +20,7 @@
         "RegionName": {
             "Description": " the region name",
             "Type": "String",
-            "Default": "RegionContrail1"
+            "Default": "RegionKVM"
         },
         "EnableOSDebug": {
             "Description": "Enable OpenStack debug mode",
@@ -361,6 +361,66 @@
            "Description" : "OpenStack initialize volume size",
            "Type": "String",
            "Default": "100"
+        },
+        "MultiTenancy" :{
+           "Description" : "Contrail multi_tenancy configuration",
+           "Type": "String",
+           "Default": "false"
+        },
+        "ManageNeutron" :{
+           "Description" : "Contrail manage_neutron configuration",
+           "Type": "String",
+           "Default": "false"
+        },
+        "ManageNovaCompute" :{
+           "Description" : "Contrail manage_nova_compute configuration",
+           "Type": "String",
+           "Default": "true"
+        },
+        "RouterASN" :{
+           "Description" : "Contrail router_asn configuration",
+           "Type": "String",
+           "Default": "64512"
+        },
+        "AdminPassword" :{
+           "Description" : "Contrail admin_password configuration",
+           "Type": "String",
+           "Default": "passw0rd"
+        },
+        "Haproxy" :{
+           "Description" : "Contrail haproxy configuation",
+           "Type": "String",
+           "Default": "false"
+        },
+        "ComputeNetmask" :{
+           "Description" : "Contrail compute_netmask configuration",
+           "Type": "String",
+           "Default": "255.255.255.0"
+        },
+        "ComputeGateway" :{
+           "Description" : "Contrail compute_gateway configuration",
+           "Type": "String",
+           "Default": "9.30.30.1"
+        },
+        "ComputeCIDR" :{
+           "Description" : "Contrail compute_cidr configuration",
+           "Type": "String",
+           "Default": "9.30.30.0/24"
+        },
+        "ComputeDNS1" :{
+           "Description" : "Contrail compute_dns1 configuration",
+           "Type": "String",
+           "Default": "9.30.140.13"
+        },
+        "ComputeDNS2" :{
+           "Description" : "Contrail compute_dns2 configuration",
+           "Type": "String",
+           "Default": "9.0.0.2"
+        },
+        "ComputeDNS3" :{
+           "Description" : "Contrail compute_dns3 configuration",
+           "Type": "String",
+           "Default": "9.0.0.3"
         }
     },
     "Resources": {
@@ -373,7 +433,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[kvm-region]",
+                "chef-runlist": "role[contrail1-test]",
                 "order": 1
             }
         },
@@ -386,7 +446,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[neutron-network-node]",
+                "chef-runlist": "role[contrail1-common]",
                 "order": 2
             }
         },
@@ -399,7 +459,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[kvm-compute],role[contrail-common]",
+                "chef-runlist": "role[contrail1-test]",
                 "order": 3,
                 "multiple": true
             }
@@ -414,7 +474,7 @@
 				"NodeRef": "neutron_network_node"
 			},
 			"Metadata": {
-				"chef-runlist": "role[contrail-common]",
+				"chef-runlist": "role[contrail1-testref]",
 				"order": 4
 			}
 		}
@@ -1109,6 +1169,66 @@
         "COMPUTE_NODE_INTERFACE": {
             "Value":{
 	            "Ref": "MGMNetInterface"
+            }
+        },
+        "MULTI_TENANCY": {
+            "Value":{
+	            "Ref": "MultiTenancy"
+            }
+        },
+        "MANAGE_NEUTRON": {
+            "Value":{
+	            "Ref": "ManageNeutron"
+            }
+        },
+        "MANAGE_NOVA_COMPUTE": {
+            "Value":{
+	            "Ref": "ManageNovaCompute"
+            }
+        },
+        "ROUTER_ASN": {
+            "Value":{
+	            "Ref": "RouterASN"
+            }
+        },
+        "ADMIN_PASSWORD": {
+            "Value":{
+	            "Ref": "AdminPassword"
+            }
+        },
+        "HAPROXY": {
+            "Value":{
+	            "Ref": "Haproxy"
+            }
+        },
+        "COMPUTE_NETMASK": {
+            "Value":{
+	            "Ref": "ComputeNetmask"
+            }
+        },
+        "COMPUTE_GATEWAY": {
+            "Value":{
+	            "Ref": "ComputeGateway"
+            }
+        },
+        "COMPUTE_CIDR": {
+            "Value":{
+	            "Ref": "ComputeCIDR"
+            }
+        },
+        "COMPUTE_DNS1": {
+            "Value":{
+	            "Ref": "ComputeDNS1"
+            }
+        },
+        "COMPUTE_DNS2": {
+            "Value":{
+	            "Ref": "ComputeDNS2"
+            }
+        },
+        "COMPUTE_DNS3": {
+            "Value":{
+	            "Ref": "ComputeDNS3"
             }
         }
     }
