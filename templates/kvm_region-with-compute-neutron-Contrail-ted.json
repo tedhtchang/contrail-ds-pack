@@ -459,7 +459,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "",
+                "chef-runlist": "role[contrail1-test]",
                 "order": 3,
                 "multiple": true
             }
@@ -1087,3 +1087,149 @@
         "QUOTA_INJECTED_FILES": {
             "Value":{
                 "Ref":  "QuotaInjectedFiles"
+           }
+        },
+        "QUOTA_INSTANCES": {
+            "Value":{
+                "Ref":  "QuotaInstances"
+           }
+        },
+        "QUOTA_KEY_PAIRS": {
+            "Value":{
+                "Ref":  "QuotaKeyPairs"
+           }
+        },
+        "QUOTA_METADATA_ITEMS": {
+            "Value":{
+                "Ref":  "QuotaMetadataItems"
+           }
+        },
+        "QUOTA_RAM": {
+            "Value":{
+                "Ref":  "QuotaRam"
+           }
+        },
+        "NOVA_STATE_PATH" :{
+           "Value": {
+                "Ref": "NovaStatePath"
+            }
+        },
+        "GLANCE_FILE_STORE" :{
+           "Value": {
+                "Ref": "GlanceFileStore"
+            }
+        },
+        "CINDER_STATE_PATH" :{
+           "Value": {
+                "Ref": "CinderStatePath"
+            }
+        },
+        "CINDER_VOLUMES_DIR" :{
+           "Value": {
+                "Ref": "CinderVolumesDir"
+            }
+        },
+        "CINDER_VG_SIZE" :{
+           "Value": {
+                "Ref": "CinderVGSize"
+            }
+        },
+        "REGION_IP" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicIp"
+                ]
+            }
+        },
+        "NETWORK_IP" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "neutron_network_node",
+                    "PublicIp"
+                ]
+            }
+        },
+        "COMPUTE_IP" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_compute",
+                    "PublicIp"
+                ]
+            }
+        },
+        "NETWORK_FQDN" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "neutron_network_node",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "COMPUTE_NODE_INTERFACE": {
+            "Value":{
+                "Ref": "MGMNetInterface"
+            }
+        },
+        "MULTI_TENANCY": {
+            "Value":{
+                "Ref": "MultiTenancy"
+            }
+        },
+        "MANAGE_NEUTRON": {
+            "Value":{
+                "Ref": "ManageNeutron"
+            }
+        },
+        "MANAGE_NOVA_COMPUTE": {
+            "Value":{
+                "Ref": "ManageNovaCompute"
+            }
+        },
+        "ROUTER_ASN": {
+            "Value":{
+                "Ref": "RouterASN"
+            }
+        },
+        "ADMIN_PASSWORD": {
+            "Value":{
+                "Ref": "AdminPassword"
+            }
+        },
+        "HAPROXY": {
+            "Value":{
+                "Ref": "Haproxy"
+            }
+        },
+        "COMPUTE_NETMASK": {
+            "Value":{
+                "Ref": "ComputeNetmask"
+            }
+        },
+        "COMPUTE_GATEWAY": {
+            "Value":{
+                "Ref": "ComputeGateway"
+            }
+        },
+        "COMPUTE_CIDR": {
+            "Value":{
+                "Ref": "ComputeCIDR"
+            }
+        },
+        "COMPUTE_DNS1": {
+            "Value":{
+                "Ref": "ComputeDNS1"
+            }
+        },
+        "COMPUTE_DNS2": {
+            "Value":{
+                "Ref": "ComputeDNS2"
+            }
+        },
+        "COMPUTE_DNS3": {
+            "Value":{
+                "Ref": "ComputeDNS3"
+            }
+        }
+    }
+}
