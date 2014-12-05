@@ -1,6 +1,6 @@
 default['contrail']['contrail_version'] = '2.0'
 #To server your own RHEL repo, set true for this attribute and create the directory structure 'operatingsystem/redhat6.5/x86_64/' under your http server's DoucmentRoot.
-default['contrail']['setup_operatingsystem_dependencies_repo'] = false
+default['contrail']['setup_operatingsystem_dependencies_repo'] = "false"
 #Ted chang: for now Hard coding the repo server ip (http://9.30.30.65:3080/) but we need to replace it with chef url(#{Chef::Config[:chef_server_url]})
 default['contrail']['base_contrail_yum_url'] = "http://9.30.30.65:3080/scp/contrail/"
 default['contrail']['base_operatingsystem_dependencies_url'] = \
@@ -9,21 +9,19 @@ default['contrail']['keystone_ip']="1.1.1.1"
 default['contrail']['region_ip']="1.1.1.2"
 default['contrail']['network_ip']="1.1.1.3"
 default['contrail']['compute_ip']="1.1.1.4"
-#default['contrail']['compute_node_interface']="eth1"
-#default['contrail']['single_signon_domain']="abc.xyz.com'
 
 # Contrail
 default['contrail']['openstack_release'] = "icehouse"
-default['contrail']['multi_tenancy'] = false
-default['contrail']['manage_neutron'] = false
-default['contrail']['manage_nova_compute'] = true
-default['contrail']['router_asn'] = 64512
+default['contrail']['multi_tenancy'] = "false"
+default['contrail']['manage_neutron'] = "false"
+default['contrail']['manage_nova_compute'] = "true"
+default['contrail']['router_asn'] = "64512"
 default['contrail']['service_token'] = "#{node['openstack']['identity']['simple_token_secret']}"
 default['contrail']['admin_token'] = "#{node['openstack']['identity']['simple_token_secret']}"
 default['contrail']['admin_password'] = "passw0rd"
 default['contrail']['admin_user'] = "#{node['openstack']['identity']['admin_user']}"
 default['contrail']['admin_tenant_name'] = "#{node['openstack']['identity']['admin_tenant_name']}"
-default['contrail']['haproxy'] = false
+default['contrail']['haproxy'] = "false"
 default['contrail']['cfgm']['hostname'] = "hostname.ibm.com"
 default['contrail']['cfgm']['ip'] = "#{node['contrail']['network_ip']}"
 default['contrail']['region_name'] = "#{node['openstack']['region']}" 
