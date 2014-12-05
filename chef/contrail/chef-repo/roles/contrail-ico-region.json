@@ -1,0 +1,16 @@
+{
+  "name": "contrail-ico-region",
+  "description": "This will deploy a ICO region server with Contrail updates",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "role[contrail-common]",
+    "recipe[contrail::postregion]"
+  ],
+  "env_run_lists": {
+  }
+}

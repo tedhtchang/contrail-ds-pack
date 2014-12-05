@@ -1,0 +1,21 @@
+{
+  "name": "contrail-ico-network",
+  "description": "This will deploy a ICO network server with Contrail controller",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "role[contrail-common]",
+    "role[contrail-database]",
+    "role[contrail-config]",
+    "role[contrail-control]",
+    "role[contrail-webui]",
+    "role[contrail-analytics]",
+    "recipe[contrail::postnetwork]"
+  ],
+  "env_run_lists": {
+  }
+}
