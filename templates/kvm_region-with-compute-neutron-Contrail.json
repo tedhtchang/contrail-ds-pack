@@ -1201,6 +1201,14 @@
 	            "Ref": "Haproxy"
             }
         },
+        "COMPUTE_FQDN" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_compute",
+                    "PublicDnsName"
+                ]
+            }
+        },
         "COMPUTE_NETMASK": {
             "Value":{
 	            "Ref": "ComputeNetmask"
