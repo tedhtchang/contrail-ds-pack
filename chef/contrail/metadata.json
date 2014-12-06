@@ -16,6 +16,9 @@
       "cfgm":{
         "hostname":"NETWORK_FQDN"
       },
+      "control":{
+        "hostname":"NETWORK_FQDN"
+      },
       "compute":{
         "domain":"SINGLE_SIGN_ON_DOMAIN",
         "interface":"COMPUTE_NODE_INTERFACE",
