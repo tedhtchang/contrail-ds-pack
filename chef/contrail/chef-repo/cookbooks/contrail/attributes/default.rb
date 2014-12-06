@@ -33,6 +33,7 @@ default['contrail']['protocol']['keystone'] = "http"
 default['contrail']['database']['ip'] = "#{node['contrail']['network_ip']}"
 # Control
 default['contrail']['control']['ip'] = "#{node['contrail']['network_ip']}"
+default['contrail']['control']['hostname'] = "hostname2.ibm.com"
 # Analytics
 default['contrail']['analytics']['ip'] = "#{node['contrail']['network_ip']}"
 # Compute
