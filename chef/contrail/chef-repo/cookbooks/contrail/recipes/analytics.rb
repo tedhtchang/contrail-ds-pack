@@ -20,7 +20,7 @@ end
         owner "contrail"
         group "contrail"
         mode 00640
-        variables(:servers => get_database_nodes)
+        #variables(:servers => get_database_nodes)
         notifies :restart, "service[contrail-#{pkg}]", :immediately
     end
 end
