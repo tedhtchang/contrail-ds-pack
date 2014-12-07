@@ -446,7 +446,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[contrail-common],role[contrail-database],recipe[contrail::haproxy],role[contrail-config]",
+                "chef-runlist": "role[contrail-common],role[contrail-database],recipe[contrail::haproxy],role[contrail-config],role[contrail-analytics]",
                 "order": 2
             }
         },
