@@ -17,7 +17,7 @@ log_local=1
 log_level=SYS_NOTICE
 disc_server_ip=<%=node['contrail']['cfgm']['ip']%>
 disc_server_port=5998
-zk_server_ip = <%=node['contrail']['cfgm']['ip'] + '2181'%>
+zk_server_ip = <%=node['contrail']['cfgm']['ip'] + ':2181'%>
 
 [SECURITY]
 use_certs=False
