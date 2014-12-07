@@ -1,5 +1,5 @@
 {
-  "name": "webui",
+  "name": "contrail-webui",
   "description": "A functional webui node in a opencontrail cluster",
   "json_class": "Chef::Role",
   "default_attributes": {

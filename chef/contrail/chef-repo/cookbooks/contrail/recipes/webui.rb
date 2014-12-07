@@ -15,7 +15,7 @@ template "/etc/contrail/config.global.js" do
     owner "contrail"
     group "contrail"
     mode 00640
-    variables(:servers => get_database_nodes)
+    #variables(:servers => get_database_nodes)
     notifies :restart, "service[contrail-webui]", :immediately
     notifies :restart, "service[contrail-webui-middleware]", :immediately
 end
