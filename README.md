@@ -16,7 +16,7 @@ ICO specific change list
 * /contrail/chef-repo/cookbooks/contrail/templates/default/rabbit-env.conf.erb
 
 
-#### Seach related changed:
+#### Seach (*database* and *cfgm* in role) related changed:
 * chef/contrail/chef-repo/cookbooks/contrail/recipes/cfgm.rb
 * chef/contrail/chef-repo/cookbooks/contrail/recipes/database.rb
 * chef/contrail/chef-repo/cookbooks/contrail/templates/default/contrail-api.conf.erb
@@ -24,4 +24,7 @@ ICO specific change list
 * chef/contrail/chef-repo/cookbooks/contrail/templates/default/contrail-schema.conf.erb
 * chef/contrail/chef-repo/cookbooks/contrail/templates/default/contrail-svc-monitor.conf.erb
 * chef/contrail/chef-repo/cookbooks/contrail/templates/default/haproxy.cfg.erb
-*
+* chef/contrail/chef-repo/cookbooks/contrail/recipes/analytics.rb
+* chef/contrail/chef-repo/cookbooks/contrail/templates/default/contrail-analytics-api.conf.erb
+* chef/contrail/chef-repo/cookbooks/contrail/templates/default/contrail-collector.conf.erb
+* chef/contrail/chef-repo/cookbooks/contrail/templates/default/contrail-query-engine.conf.erb
