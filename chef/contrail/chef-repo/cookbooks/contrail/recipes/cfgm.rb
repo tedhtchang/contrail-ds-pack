@@ -56,7 +56,7 @@ end
 template "/etc/ifmap-server/basicauthusers.properties" do
     source "ifmap-basicauthusers.properties.erb"
     mode 00644
-    variables(:servers => get_cfgm_nodes)
+    #variables(:servers => node['contrail']['cfgm']['ip'])
     notifies :restart, "service[ifmap]", :immediately
 end
 
@@ -77,7 +77,7 @@ end
         owner "contrail"
         group "contrail"
         mode 00640
-        variables(:servers => get_database_nodes)
+        #variables(:servers =>node['contrail']['database']['ip'])
         notifies :restart, "service[#{pkg}]", :immediately
     end
 end

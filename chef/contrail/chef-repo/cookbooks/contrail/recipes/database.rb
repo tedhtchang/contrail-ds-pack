@@ -26,7 +26,7 @@ end
     template "/etc/cassandra/conf/#{file}" do
         source "#{file}.erb"
         mode 00644
-        variables(:servers => get_database_nodes)
+        #variables(:servers => node['contrail']['database']['ip'])
         notifies :restart, "service[contrail-database]", :delayed
     end
 end

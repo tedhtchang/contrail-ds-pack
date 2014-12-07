@@ -16,8 +16,12 @@
       "cfgm":{
         "hostname":"NETWORK_FQDN"
       },
+      "control":{
+        "hostname":"NETWORK_FQDN"
+      },
       "compute":{
         "domain":"SINGLE_SIGN_ON_DOMAIN",
+        "hostname":"COMPUTE_FQDN",
         "interface":"COMPUTE_NODE_INTERFACE",
         "netmask":"COMPUTE_NETMASK",
         "gateway":"COMPUTE_GATEWAY",
