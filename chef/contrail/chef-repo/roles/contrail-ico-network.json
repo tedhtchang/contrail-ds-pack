@@ -11,6 +11,7 @@
     "role[contrail-common]",
     "recipe[contrail::prenetwork]"
     "role[contrail-database]",
+    "recipe[contrail::haproxy]"
     "role[contrail-config]",
     "role[contrail-control]",
     "role[contrail-webui]",
