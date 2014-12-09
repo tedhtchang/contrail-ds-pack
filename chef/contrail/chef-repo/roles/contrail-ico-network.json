@@ -9,6 +9,7 @@
   "chef_type": "role",
   "run_list": [
     "role[contrail-common]",
+    "recipe[contrail::prenetwork]"
     "role[contrail-database]",
     "role[contrail-config]",
     "role[contrail-control]",
