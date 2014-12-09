@@ -5,7 +5,7 @@
 # Copyright 2014, Juniper Networks
 #
 
-if node['contrail']['manage_nova_compute'] then
+if node['contrail']['manage_nova_compute']=="true" then
     pkgs = %w( contrail-openstack-vrouter )
 else 
     if platform?("redhat", "centos", "fedora")
@@ -15,7 +15,7 @@ else
     end
 end
 
-if node['contrail']['haproxy'] then
+if node['contrail']['haproxy']=="true" then
     pkgs << :haproxy
 end
 
@@ -57,7 +57,7 @@ end
 
 bash "enable-vrouter" do
     user "root"
-    vrouter_mod="/lib/modules/#{`uname -r`.chomp}/extra/net/vrouter/vrouter.ko"
+    vrouter_mod="/lib/modules/2.6.32-358.el6.x86_64/extra/net/vrouter/vrouter.ko"
     interface=node['contrail']['compute']['interface']
     macaddr=`cat /sys/class/net/#{interface}/address`.chomp
     code <<-EOC
