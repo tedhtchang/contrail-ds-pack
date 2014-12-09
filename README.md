@@ -30,3 +30,6 @@ ICO specific change list
 * chef/contrail/chef-repo/cookbooks/contrail/templates/default/contrail-query-engine.conf.erb
 * chef/contrail/chef-repo/cookbooks/contrail/recipes/webui.rb
 * chef/contrail/chef-repo/cookbooks/contrail/templates/default/contrail-config.global.js.erb
+
+#### Data type (use String instead of boolean or integer) related changes:
+* chef/contrail/chef-repo/cookbooks/contrail/recipes/vrouter.rb
