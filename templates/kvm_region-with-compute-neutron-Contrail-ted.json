@@ -20,7 +20,7 @@
         "RegionName": {
             "Description": " the region name",
             "Type": "String",
-            "Default": "RegionKVM"
+            "Default": "RegionKVM1"
         },
         "EnableOSDebug": {
             "Description": "Enable OpenStack debug mode",
@@ -446,7 +446,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[contrail-common],role[contrail-database],recipe[contrail::haproxy],role[contrail-config],role[contrail-analytics],role[contrail-control],role[contrail-webui]",
+                "chef-runlist": "role[contrail-ico-network]",
                 "order": 2
             }
         },
@@ -459,7 +459,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "",
+                "chef-runlist": "role[contrail-ico-compute]",
                 "order": 3,
                 "multiple": true
             }
