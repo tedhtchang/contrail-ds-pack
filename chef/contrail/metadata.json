@@ -2,7 +2,7 @@
   "override_attributes":{
     "contrail":{
       "setup_operatingsystem_dependencies_repo":"true",
-      "base_contrail_yum_url":"http://9.30.30.65:3080/scp/contrail/",
+      "base_contrail_yum_url":"http://9.30.30.65:3080/scp/contrail1/",
       "keystone_ip":"CS2_VIRTUAL_ADDRESS",
       "region_ip":"REGION_IP",
       "network_ip":"NETWORK_IP",
@@ -13,15 +13,8 @@
       "router_asn":"ROUTER_ASN",
       "admin_password":"ADMIN_PASSWORD",
       "haproxy":"HAPROXY",
-      "cfgm":{
-        "hostname":"NETWORK_FQDN"
-      },
-      "control":{
-        "hostname":"NETWORK_FQDN"
-      },
       "compute":{
         "domain":"SINGLE_SIGN_ON_DOMAIN",
-        "hostname":"COMPUTE_FQDN",
         "interface":"COMPUTE_NODE_INTERFACE",
         "netmask":"COMPUTE_NETMASK",
         "gateway":"COMPUTE_GATEWAY",
