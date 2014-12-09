@@ -9,7 +9,7 @@
   "chef_type": "role",
   "run_list": [
     "role[contrail-common]",
-    "recipe[contrail::precompute]"
+    "recipe[contrail::precompute],"
     "role[contrail-compute]",
     "recipe[contrail::postcompute]"
   ],
