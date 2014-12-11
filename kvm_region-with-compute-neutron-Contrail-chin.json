@@ -1,0 +1,1251 @@
+{
+    "HeatTemplateFormatVersion": "2012-12-12",
+    "Description": "KVM region server + compute node + neutron network node",
+    "Mappings": {
+        "Category": {
+            "name": "Distributed",
+            "desc": "Deploy IBM Cloud Orchestrator with Contrail plugin in standard distributed mode."
+        },
+        "Type": {
+            "name": "KVM Region Server with Contrail plugin",
+            "desc": "IBM Cloud Orchestrator KVM region servers with Contrail plugin",
+	        "level": 2
+        },
+        "AutoRegister": true,
+        "Name": "KVM region server with compute node and neutron network node with Contrail plugin",
+        "Description": "Deploys a KVM region server, compute node and Neutron network node with Contrail plugin that use a standalone database on the KVM region server.",
+        "Mandatory-Params":["MGMNetInterface"]
+    },
+    "Parameters": {
+        "RegionName": {
+            "Description": " the region name",
+            "Type": "String",
+            "Default": "RegionChin"
+        },
+        "EnableOSDebug": {
+            "Description": "Enable OpenStack debug mode",
+            "Type": "String",
+            "Default": "false"
+        },
+        "NetworkManager": {
+            "Description": "Network manager type of OpenStack",
+            "Type": "String",
+            "Default": "nova.network.manager.VlanManager"
+        },
+        "VMIPV4ADDR": {
+            "Description": "VM IPv4 network address",
+            "Type": "String",
+            "Default": "10.10.0.0/24"
+        },
+        "VMBridge": {
+            "Description": "Bridge of VM",
+            "Type": "String",
+            "Default": "br4096"
+        },
+        "VMDns1": {
+            "Description": "DNS1 of VM",
+            "Type": "String",
+            "Default": " "
+        },
+        "VMDns2": {
+            "Description": "DNS2 of VM",
+            "Type": "String",
+            "Default": " "
+        },
+        "VMStartIP": {
+            "Description": "Start IP address of VM IP Range",
+            "Type": "String",
+            "Default": "10.10.0.100"
+        },
+        "VMEndIP": {
+            "Description": "End IP address of VM IP Range",
+            "Type": "String",
+            "Default": "10.10.0.200"
+        },
+        "VMVLANID": {
+            "Description": "Vlan ID of the VM network",
+            "Type": "String",
+            "Default": "100"
+        },
+        "VMGATEWAY": {
+            "Description": "Gateway of the VM network",
+            "Type": "String",
+            "Default": "10.10.0.1"
+        },
+        "VMNETLABEL": {
+            "Description": "Label of the VM network",
+            "Type": "String",
+            "Default": "demo"
+        },
+        "MGMNetInterface": {
+            "Description": "Management network bind interface, should keep consistent in each nodes",
+            "Type": "String",
+            "Default": "eth0"
+        },
+        "DataNetInterface": {
+           "Description": "the physical interface for data traffic of VM",
+           "Type": "String",
+           "Default": "eth0"
+        },
+        "ExtNetInterface":{
+           "Description" : "the external physical interface for data traffic of VM",
+           "Type":"String",
+           "Default":"eth0"
+        },
+        "VxlanMultiCastGroup":{
+           "Description": "the multi-cast group address for Vxlan",
+           "Type":"String",
+           "Default":"224.0.0.100"
+        },
+        "VniRange":{
+           "Description": "range of the Vxlan VNI IDs that available",
+           "Type":"String",
+           "Default":"1000:10000"
+        },
+        "Enable_Netns" :{
+           "Description" : " enable the name space",
+           "Type" : "String",
+           "Default" : "True"
+        },
+        "Enable_Overlap_IP" :{
+           "Description" : " enable overlap ip",
+           "Type" : "String",
+           "Default" : "True"
+        },
+        "OSNetworkType": {
+            "Description": "OpenStack network type, nova or neutron",
+            "Type": "String",
+            "Default": "neutron"
+        },
+        "OSLibvirtType": {
+            "Description": "OpenStack libvirt type (kvm/qemu)",
+            "Type": "String",
+            "Default": "kvm"
+        },
+        "ComputeDriver": {
+            "Description": "Openstack hypervisor driver",
+            "Type": "String",
+            "Default":"libvirt.LibvirtDriver"
+        },
+        "MultiHostEnable": {
+            "Description": "Multihost enable",
+            "Type": "String",
+            "Default":"true"
+        },
+        "NetworkSize":{
+            "Description": "IP addresses size of each networks",
+            "Type": "String",
+            "Default": "256"
+        },
+        "NumberNetworks": {
+            "Description": "Number of networks",
+            "Type": "String",
+            "Default": "1"
+        },
+        "DataBagKeyPath": {
+            "Description": "The path of data bag for password/token/secret",
+            "Type": "String",
+            "Default": "/etc/chef/databag_secret"
+        },
+        "DataBasePassword" : {
+            "Description": "The password for Database",
+            "Type": "String",
+            "Default":"passw0rd"
+        },
+        "DatabaseType": {
+            "Description": "Database type (db2)",
+            "Type": "String",
+            "Default": "db2"
+        },
+        "DatabasePort": {
+            "Description": "Database port",
+            "Type": "String",
+            "Default": "50000"
+        },
+        "DB2ServiceIPNetmask":{
+        	"Description": "Netmask of DB2 service IP address",
+        	"Type": "String",
+        	"Default": "255.255.255.0"
+        },
+        "VolumeDBName": {
+            "Description": "Volume database name",
+            "Type": "String",
+            "Default": "openstac"
+        },
+        "VolumeDBUsername": {
+            "Description": "Volume database username",
+            "Type": "String",
+            "Default": "cinder"
+        },
+        "ComputeDBName": {
+            "Description": "Compute database name",
+            "Type": "String",
+            "Default": "openstac"
+        },
+        "ComputeDBUsername": {
+            "Description": "Compute database username",
+            "Type": "String",
+            "Default": "nova"
+        },
+        "DashboardDBName": {
+            "Description": "Dashboard database name",
+            "Type": "String",
+            "Default": "openstac"
+        },
+        "DashboardDBUsername": {
+            "Description": "Dashboard database username",
+            "Type": "String",
+            "Default": "dash"
+        },
+        "KeystoneDBName": {
+            "Description": "Keystone database name",
+            "Type": "String",
+            "Default": "openstac"
+        },
+        "KeystoneDBUsername": {
+            "Description": "Keystone database username",
+            "Type": "String",
+            "Default": "keystone"
+        },
+        "ImageDBName": {
+            "Description": "Image database name",
+            "Type": "String",
+            "Default": "openstac"
+        },
+        "ImageDBUsername": {
+            "Description": "Image database username",
+            "Type": "String",
+            "Default": "glance"
+        },
+        "MeteringDBName": {
+            "Description": "Metering database name",
+            "Type": "String",
+            "Default": "openstac"
+        },
+        "MeteringDBUsername": {
+            "Description": "Metering database username",
+            "Type": "String",
+            "Default": "ceil"
+        },
+        "NetworkDBName": {
+            "Description": "Network database name",
+            "Type": "String",
+            "Default": "openstac"
+        },
+        "NetworkDBUsername": {
+            "Description": "Network database username",
+            "Type": "String",
+            "Default": "neutron"
+        },
+        "OrchestrationDBName": {
+            "Description": "Orchestration database name",
+            "Type": "String",
+            "Default": "openstac"
+        },
+        "OrchestrationDBUsername": {
+            "Description": "Orchestration database username",
+            "Type": "String",
+            "Default": "heat"
+        },
+        "MeteringDBNoSQLUsed": {
+            "Description": "Metering database use NoSQL API",
+            "Type": "String",
+            "Default": "true"
+        },
+        "Ml2MechanismDrivers": {
+            "Description": "openstack network ml2 mechanism drivers",
+            "Type": "String",
+            "Default": "linuxbridge"
+        },
+        "Ml2FlatNetworks": {
+            "Description": "ml2 flat networks",
+            "Type": "String",
+            "Default": "physnet1"
+        },
+        "Ml2VlanRanges": {
+            "Description": "ml2 network vlan ranges",
+            "Type": "String",
+            "Default": "physnet1"
+        },
+        "DhcpOption": {
+            "Description": "DHCP option for dnsmasq",
+            "Type": "String",
+            "Default": "26,1454"
+        },
+        "QuotaSecurityGroups":{
+        	"Description": "Quota for security group",
+        	"Type": "String",
+            "Default": "50"
+        },
+        "QuotaSecurityGroupRules":{
+        	"Description": "Quota for security group rules",
+        	"Type": "String",
+            "Default": "20"
+        },
+        "QuotaDriver":{
+        	"Description": "Quota for driver",
+        	"Type": "String",
+            "Default": "nova.quota.DbQuotaDriver"
+        },
+        "QuotaCores":{
+        	"Description": "Quota for cores",
+        	"Type": "String",
+            "Default": "20"
+        },
+        "QuotaFixedIps":{
+        	"Description": "Quota for fixed ips",
+        	"Type": "String",
+            "Default": "-1"
+        },
+        "QuotaFloatingIps":{
+        	"Description": "Quota for floating ips",
+        	"Type": "String",
+            "Default": "10"
+        },
+        "QuotaInjectedFileContentBytes":{
+        	"Description": "Quota for injected file content bytes",
+        	"Type": "String",
+            "Default": "10240"
+        },
+        "QuotaInjectedFilePathBytes":{
+        	"Description": "Quota for injected file path bytes",
+        	"Type": "String",
+            "Default": "255"
+        },
+        "QuotaInjectedFiles":{
+        	"Description": "Quota for injected files",
+        	"Type": "String",
+            "Default": "5"
+        },
+        "QuotaInstances":{
+        	"Description": "Quota for instances",
+        	"Type": "String",
+            "Default": "10"
+        },
+        "QuotaKeyPairs":{
+        	"Description": "Quota for key pairs",
+        	"Type": "String",
+            "Default": "100"
+        },
+        "QuotaMetadataItems":{
+        	"Description": "Quota for metadata items",
+        	"Type": "String",
+            "Default": "128"
+        },
+        "QuotaRam":{
+        	"Description": "Quota for Ram",
+        	"Type": "String",
+            "Default": "51200"
+        },
+        "NovaStatePath":{
+            "Description": "OpenStack Nova path to save state",
+            "Type": "String",
+            "Default": "/var/lib/nova"
+        },
+        "GlanceFileStore": {
+            "Description": "OpenStack Glance path to save images",
+            "Type": "String",
+            "Default" : "/var/lib/glance/images"
+        },
+        "CinderStatePath" :{
+           "Description": "OpenStack Cinder path to save states",
+           "Type" : "String",
+           "Default" : "/var/lib/cinder"
+        },
+        "CinderVolumesDir" :{
+           "Description": "OpenStack cinder directory to save volumes",
+           "Type": "String",
+           "Default": "/var/lib/cinder/volumes"
+        },
+        "CinderVGSize" :{
+           "Description" : "OpenStack initialize volume size",
+           "Type": "String",
+           "Default": "100"
+        },
+        "MultiTenancy" :{
+           "Description" : "Contrail multi_tenancy configuration",
+           "Type": "String",
+           "Default": "false"
+        },
+        "ManageNeutron" :{
+           "Description" : "Contrail manage_neutron configuration",
+           "Type": "String",
+           "Default": "false"
+        },
+        "ManageNovaCompute" :{
+           "Description" : "Contrail manage_nova_compute configuration",
+           "Type": "String",
+           "Default": "true"
+        },
+        "RouterASN" :{
+           "Description" : "Contrail router_asn configuration",
+           "Type": "String",
+           "Default": "64512"
+        },
+        "AdminPassword" :{
+           "Description" : "Contrail admin_password configuration",
+           "Type": "String",
+           "Default": "passw0rd"
+        },
+        "Haproxy" :{
+           "Description" : "Contrail haproxy configuation",
+           "Type": "String",
+           "Default": "false"
+        },
+        "ComputeNetmask" :{
+           "Description" : "Contrail compute_netmask configuration",
+           "Type": "String",
+           "Default": "255.255.255.0"
+        },
+        "ComputeGateway" :{
+           "Description" : "Contrail compute_gateway configuration",
+           "Type": "String",
+           "Default": "9.30.30.1"
+        },
+        "ComputeCIDR" :{
+           "Description" : "Contrail compute_cidr configuration",
+           "Type": "String",
+           "Default": "9.30.30.0/24"
+        },
+        "ComputeDNS1" :{
+           "Description" : "Contrail compute_dns1 configuration",
+           "Type": "String",
+           "Default": "9.30.140.13"
+        },
+        "ComputeDNS2" :{
+           "Description" : "Contrail compute_dns2 configuration",
+           "Type": "String",
+           "Default": "9.0.0.2"
+        },
+        "ComputeDNS3" :{
+           "Description" : "Contrail compute_dns3 configuration",
+           "Type": "String",
+           "Default": "9.0.0.3"
+        }
+    },
+    "Resources": {
+        "kvm_region_neutron": {
+            "Type": "IBM::SCO::Node",
+            "Properties": {
+                "Address": "REGION_ADDR",
+                "User": "root",
+                "Password": "passw0rd",
+                "KeyFile": "/home/heat/.ssh/heat_key"
+            },
+            "Metadata": {
+                "chef-runlist": "role[kvm-region],role[contrail-ico-region]",
+                "order": 1
+            }
+        },
+        "neutron_network_node": {
+            "Type": "IBM::SCO::Node",
+            "Properties": {
+                "Address": "NETWORK_ADDR",
+                "User": "root",
+                "Password": "passw0rd",
+                "KeyFile": "/home/heat/.ssh/heat_key"
+            },
+            "Metadata": {
+                "chef-runlist": "role[neutron-network-node]",
+                "order": 2
+            }
+        },
+        "kvm_compute": {
+            "Type": "IBM::SCO::Node",
+            "Properties": {
+                "Address": "COMPUTE_ADDR",
+                "User": "root",
+                "Password": "passw0rd",
+                "KeyFile": "/home/heat/.ssh/heat_key"
+            },
+            "Metadata": {
+                "chef-runlist": "role[kvm-compute],role[contrail-ico-compute]",
+                "order": 3,
+                "multiple": true
+            }
+        },
+		"contrail_network_noderef": {
+			"Type": "IBM::SCO::NodeRef",
+			"Properties": {
+				"Address": "NETWORK_ADDR",
+				"User": "root",
+				"Password": "passw0rd",
+				"KeyFile": "/home/heat/.ssh/zq_key",
+				"NodeRef": "neutron_network_node"
+			},
+			"Metadata": {
+				"chef-runlist": "role[contrail-ico-network]",
+				"order": 4
+			}
+		}
+    },
+    "Outputs": {
+        "kvm_region_neutron_IP": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicIp"
+                ]
+            }
+        },
+        "neutron_network_node_IP": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "neutron_network_node",
+                    "PublicIp"
+                ]
+            }
+        },
+        "kvm_compute_IP": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_compute",
+                    "PublicIp"
+                ]
+            }
+        },
+        "contrail_network_noderef_IP": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "neutron_network_node",
+                    "PublicIp"
+                ]
+            }
+        },
+        "DB2_SERVICE_IP_ADDRESS": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "ServiceIp"
+                ]
+            }
+        },
+        "DB2_SERVICE_IP_NETMASK": {
+            "Value":{
+        		"Ref": "DB2ServiceIPNetmask"
+            }
+        },
+        "DB2_SERVICE_IP_INTERFACE": {
+            "Value":{
+	            "Ref": "MGMNetInterface"
+            }
+        },
+        "ENABLE_DEBUG": {
+            "Value": {
+                "Ref": "EnableOSDebug"
+            }
+        },
+        "REGION_NAME":{
+            "Value":{
+        		"Ref": "RegionName"
+            }
+        },
+        "NETWORK_MANAGER": {
+            "Value": {
+                "Ref": "NetworkManager"
+            }
+        },
+        "IPV4_CIDR": {
+            "Value": {
+                "Ref": "VMIPV4ADDR"
+            }
+        },
+        "BRIDGE": {
+            "Value": {
+                "Ref": "VMBridge"
+            }
+        },
+        "DNS1": {
+            "Value": {
+                "Ref": "VMDns1"
+            }
+        },
+        "DNS2": {
+            "Value": {
+                "Ref": "VMDns2"
+            }
+        },
+        "START_IP": {
+            "Value": {
+                "Ref": "VMStartIP"
+            }
+        },
+        "END_IP": {
+            "Value": {
+                "Ref": "VMEndIP"
+            }
+        },
+        "VLAN":{
+            "Value":{
+	        	"Ref": "VMVLANID"
+            }
+        },
+        "VMGATEWAY":{
+            "Value":{
+	        	"Ref": "VMGATEWAY"
+            }
+        },
+        "VMNETLABEL":{
+            "Value":{
+	        	"Ref": "VMNETLABEL"
+            }
+        },
+        "NET_INTERFACE": {
+            "Value": {
+                "Ref": "MGMNetInterface"
+            }
+        },
+        "DATA_INTERFACE": {
+            "Value": {
+               "Ref": "DataNetInterface"
+            }
+        },
+        "EXT_INTERFACE": {
+            "Value": {
+               "Ref": "ExtNetInterface"
+            }
+        },
+        "VXLAN_MCASTGROUP": {
+            "Value": {
+               "Ref": "VxlanMultiCastGroup"
+            }
+        },
+        "VNI_RANGE": {
+            "Value": {
+              "Ref": "VniRange"
+            }
+        },
+        "ENABLE_NETNS" : {
+            "Value": {
+               "Ref":"Enable_Netns"
+            }
+        },
+        "ENABLE_OVERLAP_IP":{
+            "Value": {
+               "Ref": "Enable_Overlap_IP"
+            }
+        },
+        "NETWORK_TYPE": {
+            "Value": {
+                "Ref": "OSNetworkType"
+            }
+        },
+        "LIBVIRT_TYPE": {
+            "Value": {
+                "Ref": "OSLibvirtType"
+            }
+        },
+        "COMPUTE_DRIVER": {
+            "Value": {
+                "Ref": "ComputeDriver"
+            }
+        },
+        "MULTI_HOST_ENABLE": {
+      		"Value": {
+                "Ref": "MultiHostEnable"
+            }
+    	},
+        "IMAGE_DEFAULT_STORE": {
+            "Value": "file"
+        },
+        "DB_TYPE": {
+            "Value": {
+                "Ref": "DatabaseType"
+            }
+        },
+        "COMPUTE_DB_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "ServiceIp"
+                ]
+            }
+        },
+        "IMAGE_DB_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "ServiceIp"
+                ]
+            }
+        },
+        "NETWORK_DB_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "ServiceIp"
+                ]
+            }
+        },
+        "VOLUME_DB_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "ServiceIp"
+                ]
+            }
+        },
+        "ORCHESTRATION_DB_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "ServiceIp"
+                ]
+            }
+        },
+        "METERING_DB_NOSQL_PORT": {
+            "Value": "27017"
+        },
+        "DB_PORT": {
+            "Value": {
+                "Ref": "DatabasePort"
+            }
+        },
+        "IMAGE_DB_PASSWORD": {
+            "Value": {
+                "Ref": "DataBasePassword"
+            }
+        },
+        "IMAGE_DB_NAME": {
+            "Value":{
+                    "Ref": "ImageDBName"
+            }
+        },
+        "IMAGE_DB_PORT": {
+            "Value":{
+	            "Ref": "DatabasePort"
+            }
+        },
+        "IMAGE_DB_USERNAME": {
+            "Value":{
+                    "Ref": "ImageDBUsername"
+            }
+        },
+        "NETWORK_DB_PASSWORD": {
+            "Value": {
+                "Ref": "DataBasePassword"
+            }
+        },
+        "NETWORK_DB_NAME": {
+            "Value":{
+                    "Ref": "NetworkDBName"
+            }
+        },
+        "NETWORK_DB_USERNAME": {
+            "Value":{
+                    "Ref": "NetworkDBUsername"
+            }
+        },
+        "NETWORK_DB_PORT": {
+            "Value":{
+	            "Ref": "DatabasePort"
+            }
+        },
+        
+        "VOLUME_DB_PASSWORD": {
+            "Value": {
+                "Ref": "DataBasePassword"
+            }
+        },
+        "VOLUME_DB_NAME": {
+            "Value":{
+                    "Ref": "VolumeDBName"
+            }
+        },
+        "VOLUME_DB_USERNAME": {
+            "Value":{
+                    "Ref": "VolumeDBUsername"
+            }
+        },
+        "VOLUME_DB_PORT": {
+            "Value":{
+	            "Ref": "DatabasePort"
+            }
+        },
+        "COMPUTE_DB_PASSWORD": {
+            "Value": {
+                "Ref": "DataBasePassword"
+            }
+        },
+        "COMPUTE_DB_USERNAME": {
+            "Value":{
+                    "Ref": "ComputeDBUsername"
+            }
+        },
+        "COMPUTE_DB_NAME": {
+            "Value":{
+                    "Ref": "ComputeDBName"
+            }
+        },
+        "COMPUTE_DB_PORT": {
+            "Value":{
+	            "Ref": "DatabasePort"
+            }
+        },
+        
+        "ORCHESTRATION_DB_PASSWORD": {
+            "Value": {
+                "Ref": "DataBasePassword"
+            }
+        },
+        "ORCHESTRATION_DB_PORT": {
+            "Value":{
+	            "Ref": "DatabasePort"
+            }
+        },
+        "ORCHESTRATION_DB_NAME": {
+            "Value":{
+                    "Ref": "OrchestrationDBName"
+            }
+        },
+        "ORCHESTRATION_DB_USERNAME": {
+            "Value":{
+                    "Ref": "OrchestrationDBUsername"
+            }
+        },
+        "DASHBOARD_DB_NAME": {
+            "Value":{
+                    "Ref": "DashboardDBName"
+            }
+        },
+        "DASHBOARD_DB_USERNAME": {
+            "Value":{
+                    "Ref": "DashboardDBUsername"
+            }
+        },
+        "DASHBOARD_DB_PASSWORD": {
+            "Value": {
+                "Ref": "DataBasePassword"
+            }
+        },
+        "DASHBOARD_DB_PORT": {
+            "Value":{
+	            "Ref": "DatabasePort"
+            }
+        },
+        "KEYSTONE_DB_NAME": {
+            "Value":{
+                    "Ref": "KeystoneDBName"
+            }
+        },
+        "KEYSTONE_DB_USERNAME": {
+            "Value":{
+                    "Ref": "KeystoneDBUsername"
+            }
+        },
+        "KEYSTONE_DB_PASSWORD": {
+            "Value": {
+                "Ref": "DataBasePassword"
+            }
+        },
+        "KEYSTONE_DB_PORT": {
+            "Value":{
+	            "Ref": "DatabasePort"
+            }
+        },
+        "METERING_DB_NAME": {
+            "Value":{
+                    "Ref": "MeteringDBName"
+            }
+        },
+        "METERING_DB_USERNAME": {
+            "Value":{
+                    "Ref": "MeteringDBUsername"
+            }
+        },
+        "METERING_DB_PASSWORD": {
+            "Value": {
+                "Ref": "DataBasePassword"
+            }
+        },
+        "METERING_DB_PORT": {
+            "Value":{
+	            "Ref": "DatabasePort"
+            }
+        },
+        "METERING_DB_NOSQL_USED": {
+            "Value":{
+                    "Ref": "MeteringDBNoSQLUsed"
+            }
+        },
+        "NETWORK_SIZE": {
+            "Value": {
+                "Ref": "NetworkSize"
+            }
+        },
+        "NUM_NETWORKS": {
+            "Value": {
+                "Ref": "NumberNetworks"
+            }
+        },
+        "DATABAG_KEY_PATH": {
+            "Value": {
+                    "Ref": "DataBagKeyPath"
+            }
+        },
+        "DATABAG_SECRET": {
+            "Value": {
+                    "Ref": "DataBagKeyPath"
+            }
+        },
+        "DB_PASSWORDS_DATA_BAG": {
+            "Value": "db"
+        },
+        "USER_PASSWORDS_DATA_BAG": {
+            "Value": "user"
+        },
+        "SERVICE_PASSWORDS_DATA_BAG": {
+            "Value": "service"
+        },
+        "SECRETS_DATA_BAG": {
+            "Value": "secrets"
+        },
+        "RHEL64_IMAGE_URL": {
+            "Value": " "
+        },
+        "MQ_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicIp"
+                ]
+            }
+        },
+        "NOVA_META_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "IAAS_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicIp"
+                ]
+            }
+        },
+        "COMPUTE_API_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "COMPUTE_XVPVNC_API_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "COMPUTE_NOVNC_API_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "IMAGE_API_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "IMAGE_REGISTRY_API_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "VOLUME_API_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "NETWORK_API_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "ORCHESTRATION_API_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "ORCHESTRATION_CFN_API_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "MEMCACHED_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicIp"
+                ]
+            }
+        },
+        "DASHBOARD_ADDR": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicIp"
+                ]
+            }
+        },
+        "ML2_MECHANISM_DRIVERS": {
+            "Value": {
+                "Ref": "Ml2MechanismDrivers"
+            }
+        },
+        "ML2_FLAT_NETWORKS": {
+            "Value": {
+                "Ref": "Ml2FlatNetworks"
+            }
+        },
+        "ML2_VLAN_RANGES": {
+            "Value": {
+                "Ref": "Ml2VlanRanges"
+            }
+        },
+        "DHCP_OPTION": {
+            "Value": {
+                "Ref": "DhcpOption"
+            }
+        },
+        "QPID_SET_HA": {
+      		"Value": "false"
+    	},
+        "VM_SERVER_HOST": {
+            "Value": " "
+        },
+        "CINDER_DRIVER": {
+            "Value": "cinder.volume.drivers.lvm.LVMISCSIDriver"
+        },
+        "QUOTA_SECURITY_GROUPS": {
+        	"Value":{
+                "Ref":  "QuotaSecurityGroups"
+           }
+        },
+        "QUOTA_SECURITY_GROUP_RULES": {
+        	"Value":{
+                "Ref":  "QuotaSecurityGroupRules"
+           }
+        },
+        "QUOTA_DRIVER": {
+        	"Value":{
+                "Ref":  "QuotaDriver"
+           }
+        },
+        "QUOTA_CORES": {
+        	"Value":{
+                "Ref":  "QuotaCores"
+           }
+        },
+        "QUOTA_FIXED_IPS": {
+        	"Value":{
+                "Ref":  "QuotaFixedIps"
+           }
+        },
+        "QUOTA_FLOATING_IPS": {
+        	"Value":{
+                "Ref":  "QuotaFloatingIps"
+           }
+        },
+        "QUOTA_INJECTED_FILE_CONTENT_BYTES": {
+        	"Value":{
+                "Ref":  "QuotaInjectedFileContentBytes"
+           }
+        },
+        "QUOTA_INJECTED_FILE_PATH_BYTES": {
+        	"Value":{
+                "Ref":  "QuotaInjectedFilePathBytes"
+           }
+        },
+        "QUOTA_INJECTED_FILES": {
+        	"Value":{
+                "Ref":  "QuotaInjectedFiles"
+           }
+        },
+        "QUOTA_INSTANCES": {
+        	"Value":{
+                "Ref":  "QuotaInstances"
+           }
+        },
+        "QUOTA_KEY_PAIRS": {
+        	"Value":{
+                "Ref":  "QuotaKeyPairs"
+           }
+        },
+        "QUOTA_METADATA_ITEMS": {
+        	"Value":{
+                "Ref":  "QuotaMetadataItems"
+           }
+        },
+        "QUOTA_RAM": {
+        	"Value":{
+                "Ref":  "QuotaRam"
+           }
+        },
+        "NOVA_STATE_PATH" :{
+           "Value": {
+                "Ref": "NovaStatePath"
+            }
+        },
+        "GLANCE_FILE_STORE" :{
+           "Value": {
+                "Ref": "GlanceFileStore"
+            }
+        },
+        "CINDER_STATE_PATH" :{
+           "Value": {
+                "Ref": "CinderStatePath"
+            }
+        },
+        "CINDER_VOLUMES_DIR" :{
+           "Value": {
+                "Ref": "CinderVolumesDir"
+            }
+        },
+        "CINDER_VG_SIZE" :{
+           "Value": {
+                "Ref": "CinderVGSize"
+            }
+        },
+        "REGION_IP" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicIp"
+                ]
+            }
+        },
+        "NETWORK_IP" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "neutron_network_node",
+                    "PublicIp"
+                ]
+            }
+        },
+        "COMPUTE_IP" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_compute",
+                    "PublicIp"
+                ]
+            }
+        },
+        "REGION_FQDN" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "NETWORK_FQDN" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "neutron_network_node",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "COMPUTE_FQDN" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_compute",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "COMPUTE_NODE_INTERFACE": {
+            "Value":{
+	            "Ref": "MGMNetInterface"
+            }
+        },
+        "MULTI_TENANCY": {
+            "Value":{
+	            "Ref": "MultiTenancy"
+            }
+        },
+        "MANAGE_NEUTRON": {
+            "Value":{
+	            "Ref": "ManageNeutron"
+            }
+        },
+        "MANAGE_NOVA_COMPUTE": {
+            "Value":{
+	            "Ref": "ManageNovaCompute"
+            }
+        },
+        "ROUTER_ASN": {
+            "Value":{
+	            "Ref": "RouterASN"
+            }
+        },
+        "ADMIN_PASSWORD": {
+            "Value":{
+	            "Ref": "AdminPassword"
+            }
+        },
+        "HAPROXY": {
+            "Value":{
+	            "Ref": "Haproxy"
+            }
+        },
+        "COMPUTE_NETMASK": {
+            "Value":{
+	            "Ref": "ComputeNetmask"
+            }
+        },
+        "COMPUTE_GATEWAY": {
+            "Value":{
+	            "Ref": "ComputeGateway"
+            }
+        },
+        "COMPUTE_CIDR": {
+            "Value":{
+	            "Ref": "ComputeCIDR"
+            }
+        },
+        "COMPUTE_DNS1": {
+            "Value":{
+	            "Ref": "ComputeDNS1"
+            }
+        },
+        "COMPUTE_DNS2": {
+            "Value":{
+	            "Ref": "ComputeDNS2"
+            }
+        },
+        "COMPUTE_DNS3": {
+            "Value":{
+	            "Ref": "ComputeDNS3"
+            }
+        }
+    }
+}
