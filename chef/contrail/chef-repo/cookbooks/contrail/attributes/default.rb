@@ -9,6 +9,7 @@ default['contrail']['keystone_ip']="1.1.1.1"
 default['contrail']['region_ip']="1.1.1.2"
 default['contrail']['network_ip']="1.1.1.3"
 default['contrail']['compute_ip']="1.1.1.4"
+default['contrail']['region_fqdn']="a.b.c.com"
 
 # Contrail
 default['contrail']['openstack_release'] = "icehouse"
