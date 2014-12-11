@@ -11,3 +11,51 @@
 # Cookbook Name:: contrail
 # Recipe:: postregion
 #
+
+ico_net_url="http://#{node['contrail']['region_fqdn']}:9696"
+neutron_url="http://#{node['contrail']['network_ip']}:9696"
+
+template "/tmp/heat_to_append.erb" do
+   source "heat_to_append.erb"
+   action :create
+end
+ 
+file '/tmp/postregion.conf' do 
+    owner 'root'
+    group 'root'
+    mode '0755'
+    content "neutron_url=http://a.b.c.com:9696"
+	action :create
+end
+
+bash "update-nova" do
+    user "root"
+    code <<-EOH
+        sed -i 's|#{ico_net_url}|#{neutron_url}|' /etc/nova/nova.conf
+        service openstack-nova-api restart
+    EOH
+#    not_if "grep -q #{neutron_url} /etc/nova/nova.conf"
+end
+
+#yum install -y python-contrail python-bottle python-gevent contrail-heat
+%w{python-contrail python-bottle python-gevent contrail-heat}.each do |pkg|
+	package pkg do
+		action :install
+	end
+end
+
+bash "update-heat" do
+    user "root"
+    code <<-EOH
+        sed -i 's|#plugin_dirs=/usr/lib64/heat,/usr/lib/heat|plugin_dirs=/usr/lib/heat/resources|' /etc/heat/heat.conf
+    EOH
+end
+
+bash "append-to-heat" do
+    user "root"
+    code <<-EOF
+        cat /tmp/heat_to_append.erb >> /etc/heat/heat.conf
+        rm /tmp/heat_to_append.erb
+    EOF
+end
+

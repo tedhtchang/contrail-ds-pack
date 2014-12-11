@@ -13,11 +13,16 @@
 #
 keystone_ip = node['contrail']['keystone']['ip']
 region_ip = node['contrail']['region_ip']
-network_ip = node['contrail']['network_ip']
-compute_ip = node['contrail']['compute_ip']
+network_ip = node['contrail']['control']['hostname']
+compute_ip = node['contrail']['compute']['ip']
 region_name = node['contrail']['region_name']
 admin_token = node['contrail']['admin_token']
 
+template "/tmp/qemu_to_append.erb" do
+   source "qemu_to_append.erb"
+   action :create
+end
+ 
 file '/tmp/postcompute.conf' do 
     owner 'root'
     group 'root'
@@ -26,9 +31,27 @@ file '/tmp/postcompute.conf' do
 	action :create
 end
 
+bash "append_to_qemu" do
+    user "root"
+    code <<-EOF
+        cat /tmp/qemu_to_append.erb >> /tmp/postcompute.conf
+        cat /tmp/qemu_to_append.erb >> /etc/libvirt/qemu.conf
+        rm /tmp/qemu_to_append.erb
+    EOF
+end
+ 
 bash "update-nova" do
     user "root"
     code <<-EOH
         sed -i 's|vif_driver=nova.virt.libvirt.vif.LibvirtGenericVIFDriver|# vif_driver=nova.virt.libvirt.vif.LibvirtGenericVIFDriver|' /etc/nova/nova.conf
     EOH
+    not_if "grep -q '# vif_driver=nova.virt.libvirt.vif.LibvirtGenericVIFDriver' /etc/nova/nova.conf"
 end
+
+bash "restart-libvirtd" do
+    user "root"
+    code <<-EOH
+        service libvirtd restart
+    EOH
+end
+
