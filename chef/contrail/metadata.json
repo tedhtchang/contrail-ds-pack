@@ -12,7 +12,7 @@
       "manage_neutron":"MANAGE_NEUTRON",
       "manage_nova_compute":"MANAGE_NOVA_COMPUTE",
       "router_asn":"ROUTER_ASN",
-      "admin_password":"ADMIN_PASSWORD",
+      "admin_password":"OPENSTACK_USER_PASSWORD",
       "haproxy":"HAPROXY",
       "compute":{
         "domain":"SINGLE_SIGN_ON_DOMAIN",
