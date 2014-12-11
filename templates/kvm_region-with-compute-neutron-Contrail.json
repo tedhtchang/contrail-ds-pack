@@ -1158,10 +1158,26 @@
                 ]
             }
         },
+        "REGION_FQDN" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_region_neutron",
+                    "PublicDnsName"
+                ]
+            }
+        },
         "NETWORK_FQDN" :{
            "Value": {
                 "Fn::GetAtt": [
                     "neutron_network_node",
+                    "PublicDnsName"
+                ]
+            }
+        },
+        "COMPUTE_FQDN" :{
+           "Value": {
+                "Fn::GetAtt": [
+                    "kvm_compute",
                     "PublicDnsName"
                 ]
             }
@@ -1199,14 +1215,6 @@
         "HAPROXY": {
             "Value":{
 	            "Ref": "Haproxy"
-            }
-        },
-        "COMPUTE_FQDN" :{
-           "Value": {
-                "Fn::GetAtt": [
-                    "kvm_compute",
-                    "PublicDnsName"
-                ]
             }
         },
         "COMPUTE_NETMASK": {
