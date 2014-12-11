@@ -17,6 +17,8 @@ network_ip = node['contrail']['control']['hostname']
 compute_ip = node['contrail']['compute']['ip']
 region_name = node['contrail']['region_name']
 admin_token = node['contrail']['admin_token']
+ico_net_url="http://#{node['contrail']['region_fqdn']}:9696"
+neutron_url="http://#{node['contrail']['network_ip']}:9696"
 
 template "/tmp/qemu_to_append.erb" do
    source "qemu_to_append.erb"
@@ -44,6 +46,7 @@ bash "update-nova" do
     user "root"
     code <<-EOH
         sed -i 's|vif_driver=nova.virt.libvirt.vif.LibvirtGenericVIFDriver|# vif_driver=nova.virt.libvirt.vif.LibvirtGenericVIFDriver|' /etc/nova/nova.conf
+        sed -i 's|#{ico_net_url}|#{neutron_url}|' /etc/nova/nova.conf
     EOH
     not_if "grep -q '# vif_driver=nova.virt.libvirt.vif.LibvirtGenericVIFDriver' /etc/nova/nova.conf"
 end
