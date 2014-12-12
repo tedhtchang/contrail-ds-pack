@@ -14,6 +14,7 @@
 
 ico_net_url="http://#{node['contrail']['region_fqdn']}:9696"
 neutron_url="http://#{node['contrail']['network_ip']}:9696"
+region_name = node['contrail']['region_name']
 
 template "/tmp/heat_to_append.erb" do
    source "heat_to_append.erb"
@@ -59,3 +60,13 @@ bash "append-to-heat" do
     EOF
 end
 
+bash "update-keystone-neutron-endpoint" do
+    user "root"
+    code <<-EOF
+        # Delete defaut neutron endpoint
+        . ~/keystonerc
+        for i in `keystone endpoint-list|grep #{region_name}|grep $(keystone service-list|grep neutron|awk '{print $2}')|awk '{print $2}'`;do keystone endpoint-delete $i;done
+        # Create new neutron endpoint
+        keystone endpoint-create --region='#{region_name}' --service-id="`keystone service-list|grep neutron|awk '{print $2}'`" --publicurl='#{neutron_url}' --adminurl='#{neutron_url}' --internalurl='#{neutron_url}'
+    EOF
+end
