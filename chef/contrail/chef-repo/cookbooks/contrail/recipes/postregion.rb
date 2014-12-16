@@ -14,6 +14,7 @@
 
 ico_net_url="http://#{node['contrail']['region_fqdn']}:9696"
 neutron_url="http://#{node['contrail']['network_ip']}:9696"
+nova_url= "http://#{node['contrail']['region_ip']}:8774/v2/%(tenant_id)s"
 region_name = node['contrail']['region_name']
 
 template "/tmp/heat_to_append.erb" do
@@ -68,5 +69,16 @@ bash "update-keystone-neutron-endpoint" do
         for i in `keystone endpoint-list|grep #{region_name}|grep $(keystone service-list|grep neutron|awk '{print $2}')|awk '{print $2}'`;do keystone endpoint-delete $i;done
         # Create new neutron endpoint
         keystone endpoint-create --region='#{region_name}' --service-id="`keystone service-list|grep neutron|awk '{print $2}'`" --publicurl='#{neutron_url}' --adminurl='#{neutron_url}' --internalurl='#{neutron_url}'
+    EOF
+end
+
+bash "update-keystone-nova-endpoint" do
+    user "root"
+    code <<-EOF
+        # Delete defaut nova endpoint
+        . ~/keystonerc
+        for i in `keystone endpoint-list|grep #{region_name}|grep $(keystone service-list|grep nova|awk '{print $2}')|awk '{print $2}'`;do keystone endpoint-delete $i;done
+        # Create new nova endpoint
+        keystone endpoint-create --region='#{region_name}' --service-id="`keystone service-list|grep nova|awk '{print $2}'`" --publicurl='#{nova_url}' --adminurl='#{nova_url}' --internalurl='#{nova_url}'
     EOF
 end
