@@ -433,7 +433,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[kvm-region],role[contrail-ico-region]",
+                "chef-runlist": "role[contrail-common]",
                 "order": 1
             }
         },
@@ -446,7 +446,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[neutron-network-node]",
+                "chef-runlist": "",
                 "order": 2
             }
         },
@@ -459,7 +459,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[kvm-compute],role[contrail-ico-compute]",
+                "chef-runlist": "",
                 "order": 3,
                 "multiple": true
             }
@@ -474,7 +474,7 @@
                 "NodeRef": "neutron_network_node"
             },
             "Metadata": {
-                "chef-runlist": "role[contrail-ico-network]",
+                "chef-runlist": "",
                 "order": 4
             }
         }

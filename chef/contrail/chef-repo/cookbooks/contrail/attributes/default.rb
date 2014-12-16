@@ -1,8 +1,10 @@
-default['contrail']['contrail_version'] = '2.0'
+require 'uri'
 #To server your own RHEL repo, set true for this attribute and create the directory structure 'operatingsystem/redhat6.5/x86_64/' under your http server's DoucmentRoot.
 default['contrail']['setup_operatingsystem_dependencies_repo'] = "false"
 #Ted chang: for now Hard coding the repo server ip (http://9.30.30.65:3080/) but we need to replace it with chef url(#{Chef::Config[:chef_server_url]})
-default['contrail']['base_contrail_yum_url'] = "http://9.30.30.65:3080/scp/contrail/"
+uri = URI("#{Chef::Config[:chef_server_url]}")
+chef_server_ip = uri.host
+default['contrail']['base_contrail_yum_url'] = "http://#{chef_server_ip}:3080/scp/contrail/"
 default['contrail']['base_operatingsystem_dependencies_url'] = \
 	"http://9.30.30.65:3080/scp/operatingsystem/#{node['platform']}#{node['platform_version']}/#{node['kernel']['machine']}/"
 default['contrail']['keystone_ip']="1.1.1.1"
