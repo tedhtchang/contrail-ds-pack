@@ -15,14 +15,3 @@
 node.default['contrail']['compute']['hostname']=node["hostname"]
 node.default['contrail']['compute']['ip']=node["ipaddress"]
 
-node_hostname = node["hostname"]
-node_ip = node["ipaddress"]
-
-file '/tmp/precompute.conf' do 
-    owner 'root'
-    group 'root'
-    mode '0755'
-    content "node_hostname=#{node_hostname} node_ip=#{node_ip}"
-	action :create
-end
-

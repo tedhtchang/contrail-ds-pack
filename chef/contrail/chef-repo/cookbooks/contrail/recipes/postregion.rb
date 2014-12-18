@@ -22,14 +22,6 @@ template "/tmp/heat_to_append.erb" do
    action :create
 end
  
-file '/tmp/postregion.conf' do 
-    owner 'root'
-    group 'root'
-    mode '0755'
-    content "neutron_url=http://a.b.c.com:9696"
-	action :create
-end
-
 bash "update-nova" do
     user "root"
     code <<-EOH
