@@ -6,7 +6,7 @@ uri = URI("#{Chef::Config[:chef_server_url]}")
 chef_server_ip = uri.host
 default['contrail']['base_contrail_yum_url'] = "http://#{chef_server_ip}:3080/scp/contrail/"
 default['contrail']['base_operatingsystem_dependencies_url'] = \
-	"http://9.30.30.65:3080/scp/operatingsystem/#{node['platform']}#{node['platform_version']}/#{node['kernel']['machine']}/"
+	"http://#{chef_server_ip}:3080/scp/operatingsystem/#{node['platform']}#{node['platform_version']}/#{node['kernel']['machine']}/"
 default['contrail']['keystone_ip']="1.1.1.1"
 default['contrail']['region_ip']="1.1.1.2"
 default['contrail']['network_ip']="1.1.1.3"
