@@ -46,7 +46,7 @@ template "/etc/contrail/agent_param" do
     source "agent_param.erb"
     mode 00644
     variables(
-        :kversion => `uname -r`.chomp,
+        :kversion => "2.6.32-358.el6.x86_64",
         :interface => node['contrail']['compute']['interface'],
     )
 end

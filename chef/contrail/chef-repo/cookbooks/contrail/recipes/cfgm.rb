@@ -44,7 +44,7 @@ end
 template "/etc/rabbitmq/rabbitmq.config" do
     source "rabbitmq.config.erb"
     mode 00644
-    notifies :restart, "service[supervisor-support-service]", :delayed
+    notifies :restart, "service[rabbitmq-server]", :delayed
 end
 
 template "/etc/ifmap-server/ifmap.properties" do
@@ -83,8 +83,7 @@ end
     end
 end
 
-%w{ rabbitmq-server
-    supervisor-support-service
+%w{ supervisor-support-service
     supervisor-config
     ifmap
     contrail-discovery
@@ -93,9 +92,16 @@ end
     contrail-schema
 }.each do |pkg|
     service pkg do
-        action [:enable, :start]
+        action [:enable, :restart]
     end
 end
+
+%w{ rabbitmq-server 
+}.each do |pkg| 
+    service pkg do 
+        action [:enable, :start]
+    end 
+end 
 
 bash "provision_metadata_services" do
     user "root"
