@@ -59,3 +59,12 @@ bash "restart-libvirtd" do
     EOH
 end
 
+bash "update-agent-param" do
+    user "root"
+    code <<-EOH
+        sed -i 's|kmod=/lib|#kmod=/lib|' /etc/contrail/agent_param.tmpl
+        echo kmod=/lib/modules/2.6.32-358.el6.x86_64/extra/net/vrouter/vrouter.ko >> /etc/contrail/agent_param.tmpl
+    EOH
+    not_if "grep -q '/lib/modules/2.6.32-358.el6.x86_64/extra/net/vrouter/vrouter.ko' /etc/contrail/agent_param.tmpl"
+end
+
