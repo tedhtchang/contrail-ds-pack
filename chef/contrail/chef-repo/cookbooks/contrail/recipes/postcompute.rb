@@ -27,6 +27,7 @@ bash "append_to_qemu" do
         cat /tmp/qemu_to_append.erb >> /etc/libvirt/qemu.conf
         rm /tmp/qemu_to_append.erb
     EOF
+    not_if "grep -q '/dev/net/tun' /etc/libvirt/qemu.conf"
 end
  
 bash "update-nova" do
