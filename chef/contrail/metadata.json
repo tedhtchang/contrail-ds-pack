@@ -6,6 +6,7 @@
       "region_ip":"REGION_IP",
       "network_ip":"NETWORK_IP",
       "compute_ip":"COMPUTE_IP",
+      "compute_fqdn":"COMPUTE_FQDN",
       "region_fqdn":"REGION_FQDN",
       "multi_tenancy":"MULTI_TENANCY",
       "manage_neutron":"MANAGE_NEUTRON",

@@ -42,7 +42,7 @@ default['contrail']['analytics']['ip'] = "#{node['contrail']['network_ip']}"
 # Compute
 default['contrail']['compute']['interface'] = "eth1"
 default['contrail']['compute']['ip'] = "#{node['contrail']['compute_ip']}"
-default['contrail']['compute']['hostname'] = "compute.host"
+default['contrail']['compute']['hostname'] = "#{node['contrail']['compute_fqdn']}" 
 default['contrail']['compute']['netmask'] = "255.255.255.128"
 default['contrail']['compute']['gateway'] = "9.30.30.1"
 default['contrail']['compute']['cidr'] = "9.30.30.0/24"
