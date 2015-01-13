@@ -20,7 +20,7 @@
         "RegionName": {
             "Description": " the region name",
             "Type": "String",
-            "Default": "RegionKVM"
+            "Default": "RegionContrail"
         },
         "EnableOSDebug": {
             "Description": "Enable OpenStack debug mode",
