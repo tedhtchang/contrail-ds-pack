@@ -42,15 +42,10 @@ bash "update-heat" do
     user "root"
     code <<-EOH
         sed -i 's|#plugin_dirs=/usr/lib64/heat,/usr/lib/heat|plugin_dirs=/usr/lib/heat/resources|' /etc/heat/heat.conf
-    EOH
-end
-
-bash "append-to-heat" do
-    user "root"
-    code <<-EOF
         cat /tmp/heat_to_append.erb >> /etc/heat/heat.conf
         rm /tmp/heat_to_append.erb
-    EOF
+    EOH
+    not_if "grep -q 'plugin_dirs=/usr/lib/heat/resources' /etc/heat/heat.conf"
 end
 
 bash "update-keystone-neutron-endpoint" do
