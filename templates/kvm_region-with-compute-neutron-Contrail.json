@@ -446,7 +446,7 @@
                 "KeyFile": "/home/heat/.ssh/heat_key"
             },
             "Metadata": {
-                "chef-runlist": "role[neutron-network-node]",
+                "chef-runlist": "",
                 "order": 2
             }
         },
